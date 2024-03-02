@@ -17,6 +17,12 @@ class Ghost(Entity):
         self.blinky = blinky
         self.homeNode = node
 
+    def reset(self):
+        Entity.reset(self)
+        self.points = 200
+        self.directionMethod = self.goalDirection
+
+
     def update(self, dt):
         self.mode.update(dt)
         if self.mode.current is SCATTER:
@@ -43,6 +49,7 @@ class Ghost(Entity):
     def normalMode(self):
         self.setSpeed(100)
         self.directionMethod = self.goalDirection
+        self.homeNode.denyAccess(DOWN, self)
 
     # Spawn mode
     def spawn(self):
